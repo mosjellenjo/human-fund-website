@@ -96,6 +96,10 @@ def ask():
 def ping():
     return "pong", 200
 
+@app.route("/", methods=["HEAD"])
+def root_healthcheck():
+    return "", 200
+
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
