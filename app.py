@@ -96,9 +96,9 @@ def ask():
 def ping():
     return "pong", 200
 
-@app.route("/", methods=["HEAD"])
+@app.route("/", methods=["GET", "HEAD"])
 def root_healthcheck():
-    return "", 200
+    return "Backend is alive!", 200
 
 if __name__ == "__main__":
     import os
