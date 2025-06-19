@@ -92,6 +92,10 @@ def ask():
         "answer": response["result"],
         "sources": sources
     })
+@app.route("/ping", methods=["GET"])
+def ping():
+    return "pong", 200
+
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
