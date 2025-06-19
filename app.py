@@ -1,101 +1,87 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from dotenv import load_dotenv
-import os
-
-from langchain_community.document_loaders import TextLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
+from dotenv import load_dotenv
+import os
 
-# Load environment (for your OpenAI key)
+# Load environment variables
 load_dotenv()
 
 # Set up Flask app
 app = Flask(__name__)
 CORS(app, resources={r"/ask": {"origins": ["http://localhost:3000", "https://www.humanfund.no"]}})
 
-# Check and build vector DB if missing
-if not os.path.exists("chroma_db"):
-    print("⚠️ Chroma DB not found. Building from scratch...")
-    all_docs = []
-    for filename in os.listdir("seinfeld_scripts"):
-        if filename.endswith(".txt"):
-            path = os.path.join("seinfeld_scripts", filename)
-            loader = TextLoader(path, encoding="utf-8")
-            docs = loader.load()
-            all_docs.extend(docs)
-
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    split_docs = splitter.split_documents(all_docs)
-
-    embeddings = OpenAIEmbeddings()
-    vectordb = Chroma.from_documents(split_docs, embedding=embeddings, persist_directory="chroma_db")
-    vectordb.persist()
-    print("✅ Chroma DB built and saved.")
-else:
-    print("✅ Found existing Chroma DB.")
-    embeddings = OpenAIEmbeddings()
-    vectordb = Chroma(persist_directory="chroma_db", embedding_function=embeddings)
-
-# Set up retriever and model
+# Load embeddings and vectorstore
+embeddings = OpenAIEmbeddings()
+vectordb = Chroma(persist_directory="chroma_db", embedding_function=embeddings)
 retriever = vectordb.as_retriever(search_kwargs={"k": 4})
-llm = ChatOpenAI(model="gpt-4o")
 
-# Optional: personalities
+# Persona prompts
 persona_prompts = {
-    "jerry": """You are JerryAI, a witty and dry Seinfeld-like assistant.
-Answer based only on the provided context. Be concise, deadpan, and subtly sarcastic if possible.
-If the answer isn't in the context, say "I don't know... maybe ask Newman.".
-
-Context:
-{context}
-
-Question: {question}
-Answer:""",
-    "kruger": """You are KrugerAI. You're laid back, a little clueless, and you don’t really care.
-Answer using the context provided, but make it sound like you’re vaguely aware of what’s happening.
-
-Context:
-{context}
-
-Question: {question}
-Answer:"""
+    "jerry": """
+You are Jerry Seinfeld. You speak in sarcastic, observational monologues. Use witty remarks. Never explain like Wikipedia — speak like you’re chatting with George.
+""",
+    "george": """
+You are George Costanza. You’re anxious, defensive, and wildly insecure. You rant, exaggerate, and spiral into personal tangents.
+""",
+    "kramer": """
+You are Cosmo Kramer. You speak in scattered bursts, wild tangents, and bizarre metaphors. Your logic is confusing but passionate.
+""",
+    "kruger": """
+You are Mr. Kruger. You’re laid-back, indifferent, and somewhat clueless. You respond with a blank smile and vague detachment.
+"""
 }
 
 @app.route("/ask", methods=["POST"])
 def ask():
     data = request.json
-    question = data.get("question", "")
-    persona = data.get("persona", "jerry")
+    query = data.get("question", "")
+    persona = data.get("persona", "jerry").lower()
 
-    if not question:
+    if not query:
         return jsonify({"error": "No question provided"}), 400
 
-    # Create prompt
-    prompt_template = PromptTemplate(
-        input_variables=["context", "question"],
-        template=persona_prompts.get(persona, persona_prompts["jerry"]).strip()
-    )
+    # Combine persona and RAG context into one prompt
+    system_prompt = persona_prompts.get(persona, persona_prompts["jerry"]).strip()
 
+    prompt_template = PromptTemplate.from_template(f"""
+{system_prompt}
+
+Use ONLY the context below to answer the question. If the answer isn’t in the context, say “I don’t know.”
+
+Context:
+{{context}}
+
+Question:
+{{question}}
+
+Answer:
+""")
+
+    # Set up the RetrievalQA chain
     qa_chain = RetrievalQA.from_chain_type(
-        llm=llm,
+        llm=ChatOpenAI(model_name="gpt-4o", temperature=0),
         retriever=retriever,
+        return_source_documents=True,
         chain_type="stuff",
-        chain_type_kwargs={"prompt": prompt_template},
-        return_source_documents=True
+        chain_type_kwargs={"prompt": prompt_template}
     )
 
-    response = qa_chain({"query": question})
+    # Run the chain
+    result = qa_chain.invoke({"query": query})
 
-    # Extract sources
-    source_files = list({doc.metadata.get('source', 'unknown') for doc in response["source_documents"]})
+    # Extract file names of sources
+    sources = [
+        os.path.basename(doc.metadata.get("source", "Unknown"))
+        for doc in result.get("source_documents", [])
+    ]
 
     return jsonify({
-        "answer": response["result"],
-        "sources": source_files
+        "answer": result["result"],
+        "sources": sources
     })
 
 if __name__ == "__main__":
