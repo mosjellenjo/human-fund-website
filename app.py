@@ -1,6 +1,5 @@
 from flask_cors import CORS
-from flask import Flask, request, jsonify
-from flask import Response
+from flask import Flask, request, jsonify, Response
 from langchain_community.vectorstores import Chroma
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.chains import RetrievalQA
@@ -102,7 +101,8 @@ def ping():
 def root_healthcheck():
     if request.method == "HEAD":
         return Response(status=200)
-    return Response("Backend is alive!", status=200)
+    else:
+        return Response("Backend is alive!", status=200)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
