@@ -58,7 +58,11 @@ export default function Chatbot() {
       const data = await response.json();
       const assistantMessage = {
         role: "assistant",
-        content: data?.answer || "Sorry, I had trouble answering that.",
+        content:
+          data?.answer +
+          (data?.sources?.length
+            ? `\n\n📄 _Source: ${data.sources.join(", ")}_`
+            : ""),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
@@ -170,6 +174,7 @@ export default function Chatbot() {
                   textAlign: "left",
                   fontSize: 13,
                   lineHeight: 1.3,
+                  whiteSpace: "pre-wrap", // preserves line breaks
                 }}
               >
                 {msg.content}
