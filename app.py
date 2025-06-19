@@ -95,14 +95,11 @@ def ask():
 
 @app.route("/ping", methods=["GET"])
 def ping():
-    return "pong", 200
+    return Response("pong", status=200)
 
 @app.route("/", methods=["GET", "HEAD"])
 def root_healthcheck():
-    if request.method == "HEAD":
-        return Response(status=200)
-    else:
-        return Response("Backend is alive!", status=200)
+    return Response("Backend is alive!", status=200)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
