@@ -13,11 +13,11 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={r"/ask": {"origins": ["http://localhost:3000", "https://www.humanfund.no"]}})
 
-# Init embedding + vectorstore
+# Initialize embeddings and Chroma vector store
 embeddings = OpenAIEmbeddings()
 vectordb = Chroma(persist_directory="chroma_db", embedding_function=embeddings)
 
-# Custom prompt template
+# Custom prompt
 prompt_template = """You are a helpful assistant for The Human Fund chatbot, powered by the Seinfeld scripts.
 Only answer using information from the provided context. Do not make up facts or speculate.
 Keep responses in character and concise. Format clearly.
@@ -27,10 +27,9 @@ Context:
 
 Question: {question}
 Answer:"""
-
 prompt = PromptTemplate.from_template(prompt_template)
 
-# Set up retriever + chain
+# Setup retriever and QA chain
 retriever = vectordb.as_retriever(search_kwargs={"k": 4})
 llm = ChatOpenAI(model="gpt-4o")
 chain = RetrievalQA.from_chain_type(
@@ -48,15 +47,21 @@ def ask():
     persona = data.get("persona", "jerry")
 
     print(f"\n🧠 Question received: {question}")
+
     try:
         result = chain.invoke({"question": question})
-        answer = result["result"]
-        sources = [doc.metadata.get("source", "unknown") for doc in result["source_documents"]]
 
-        print("📄 Sources returned:", sources)
+        # DEBUG: Show what documents were retrieved
+        print("\n📥 Retrieved Documents:")
+        for doc in result['source_documents']:
+            print(" -", doc.metadata.get("source"), "|", doc.page_content[:200].replace("\n", " "))
+
+        # DEBUG: Show the final answer
+        print("\n🧾 Final Answer:")
+        print(result['result'])
+
         return jsonify({
-            "answer": answer,
-            "sources": sources
+            "answer": result["result"]
         })
 
     except Exception as e:
