@@ -1,28 +1,43 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import OpenAIEmbeddings
-from langchain.chains import RetrievalQA
-from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 import os
 
-# Load .env credentials
+from langchain_community.vectorstores import Chroma
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain.chains import RetrievalQA
+from langchain.prompts import PromptTemplate
+
 load_dotenv()
 
-# Initialize Flask app
 app = Flask(__name__)
 CORS(app, resources={r"/ask": {"origins": ["http://localhost:3000", "https://www.humanfund.no"]}})
 
-# Setup embeddings and vector store
-embedding_function = OpenAIEmbeddings()
-vectordb = Chroma(persist_directory="chroma_db", embedding_function=embedding_function)
+# Init embedding + vectorstore
+embeddings = OpenAIEmbeddings()
+vectordb = Chroma(persist_directory="chroma_db", embedding_function=embeddings)
 
-# Setup retriever chain
+# Custom prompt template
+prompt_template = """You are a helpful assistant for The Human Fund chatbot, powered by the Seinfeld scripts.
+Only answer using information from the provided context. Do not make up facts or speculate.
+Keep responses in character and concise. Format clearly.
+
+Context:
+{context}
+
+Question: {question}
+Answer:"""
+
+prompt = PromptTemplate.from_template(prompt_template)
+
+# Set up retriever + chain
 retriever = vectordb.as_retriever(search_kwargs={"k": 4})
-qa_chain = RetrievalQA.from_chain_type(
-    llm=ChatOpenAI(model="gpt-4o"),
+llm = ChatOpenAI(model="gpt-4o")
+chain = RetrievalQA.from_chain_type(
+    llm=llm,
     retriever=retriever,
+    chain_type="stuff",
+    chain_type_kwargs={"prompt": prompt},
     return_source_documents=True
 )
 
@@ -32,17 +47,21 @@ def ask():
     question = data.get("question", "")
     persona = data.get("persona", "jerry")
 
-    print(f"\n🔍 Received question: {question} (persona: {persona})")
-
+    print(f"\n🧠 Question received: {question}")
     try:
-        result = qa_chain({"query": question})
+        result = chain.invoke({"question": question})
         answer = result["result"]
-        sources = list({doc.metadata.get("source", "Unknown") for doc in result["source_documents"]})
-        print(f"✅ Answer generated with sources: {sources}")
-        return jsonify({"answer": answer, "sources": sources})
+        sources = [doc.metadata.get("source", "unknown") for doc in result["source_documents"]]
+
+        print("📄 Sources returned:", sources)
+        return jsonify({
+            "answer": answer,
+            "sources": sources
+        })
+
     except Exception as e:
-        print(f"❌ Error: {e}")
-        return jsonify({"answer": "Sorry, something went wrong.", "sources": []})
+        print("❌ Error:", str(e))
+        return jsonify({"error": "Something went wrong on the server."}), 500
 
 if __name__ == "__main__":
     print("🚀 Starting Flask backend on port 5000")
