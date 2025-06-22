@@ -19,7 +19,9 @@ export default function Chatbot() {
   const [rep, setRep] = useState("jerry");
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [messages, setMessages] = useState([{ role: "assistant", content: greetings["jerry"] }]);
+  const [messages, setMessages] = useState([
+    { role: "assistant", content: greetings["jerry"] },
+  ]);
   const chatRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,6 +38,7 @@ export default function Chatbot() {
     setLoading(true);
 
     try {
+      console.log("Sending request to backend...");
       const res = await fetch("https://human-fund-backend.onrender.com/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,14 +46,25 @@ export default function Chatbot() {
       });
 
       const data = await res.json();
-      const content = data.answer || `❌ Error: ${data.error || "No answer received."}`;
-      const sources = data.sources?.length ? `\n\n📄 _Source: ${data.sources.join(", ")}_` : "";
+      console.log("Received response:", data);
 
-      setMessages((msgs) => [...msgs, { role: "assistant", content: content + sources }]);
-    } catch {
+      const content = data.answer || `❌ Error: ${data.error || "No answer received."}`;
+      const sources = data.sources?.length
+        ? `\n\n📄 _Source: ${data.sources.join(", ")}_`
+        : "";
+
       setMessages((msgs) => [
         ...msgs,
-        { role: "assistant", content: "❌ Error: Couldn’t reach backend. Try again later." },
+        { role: "assistant", content: content + sources },
+      ]);
+    } catch (err) {
+      console.error("Request failed:", err);
+      setMessages((msgs) => [
+        ...msgs,
+        {
+          role: "assistant",
+          content: "❌ Error: Couldn’t reach backend or response was invalid. Try again later.",
+        },
       ]);
     } finally {
       setLoading(false);
