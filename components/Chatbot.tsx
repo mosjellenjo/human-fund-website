@@ -50,7 +50,7 @@ export default function Chatbot() {
 
       const content = data.answer || `❌ Error: ${data.error || "No answer received."}`;
       const sources = data.sources?.length
-        ? `\n\n📄 _Source: ${data.source_documents[0]?.metadata?.source}_`
+        ? `\n\n🧠 Source: ${data.sources[0]}`
         : "";
 
       setMessages((msgs) => [
