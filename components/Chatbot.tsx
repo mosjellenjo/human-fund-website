@@ -166,6 +166,7 @@ export default function Chatbot() {
               borderRadius: 8,
               border: "1px solid #8CFFDA",
               fontSize: 13,
+              color: "#000",
             }}
           />
           <button
