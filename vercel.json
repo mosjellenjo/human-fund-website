@@ -9,7 +9,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; media-src 'self' blob: data:; connect-src *; script-src 'self'; style-src 'self' 'unsafe-inline';"
+          "value": "default-src 'self'; media-src 'self' blob: data:; connect-src *; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src *;"
         }
       ]
     }
