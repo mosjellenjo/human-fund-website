@@ -5,15 +5,15 @@ export default function Chatbot() {
   const greetings = {
     jerry: "Hi, I'm a representative from The Human Fund. Ask me anything about what we do, Festivus, or how people help people.",
     george: "Hi, I'm a representative from The Human Fund. Ask me about what we do... unless it's about accounting. Or our boss. Or forms. Please don't ask about forms.",
-    kramer: "Hi there! I'm a representative from The Human Fund. What do you need? Let’s get weird and fix the world!",
+    kramer: "Hi there! I'm a representative from The Human Fund and a hipster doofus! What do you need? Let’s get weird and fix the world - giddy up!",
     kruger: "Hey. I'm from The Human Fund, apparently. Ask whatever, it's all good. Or not. No pressure.",
   };
 
   const thinking = {
-    jerry: "JerryAI is observationally mulling it over...",
-    george: "George is anxiously cooking up a lie about your question...",
-    kramer: "KramericAI is enthusiastically winging a response...",
-    kruger: "KrugerAI is slowly getting around to maybe answering that...",
+    jerry: "JerryAI is stalling with a relatable anecdote...",
+    george: "George is nervously overthinking your question...",
+    kramer: "KramericAI is chaotically brainstorming—hold onto something!",
+    kruger: "KrugerAI is kinda... sorta... maybe getting to it. Or not.",
   };
 
   const [rep, setRep] = useState("jerry");
@@ -109,7 +109,7 @@ export default function Chatbot() {
           }}
         >
           <option value="jerry">JerryAI</option>
-          <option value="george">VandelAI</option>
+          <option value="george">GeorgeAI</option>
           <option value="kramer">KramericAI</option>
           <option value="kruger">KrugerAI</option>
         </select>
