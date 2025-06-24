@@ -39,11 +39,20 @@ export default function Chatbot() {
 
     try {
       console.log("Sending request to backend...");
+      const userMessages = messages
+        .filter((m) => m.role === "user" || m.role === "assistant")
+        .slice(-6) // last 3 exchanges
+        .map((m) => `${m.role === "user" ? "User" : "Bot"}: ${m.content}`);
+
       const res = await fetch("https://human-fund-backend.onrender.com/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question, persona: rep }),
-      });
+        body: JSON.stringify({
+          question,
+          persona: rep,
+          history: userMessages,
+      }),
+    });
 
       const data = await res.json();
       console.log("Received response:", data);
