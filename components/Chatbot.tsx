@@ -22,7 +22,10 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     { role: "assistant", content: greetings["jerry"] },
   ]);
+  const [isMuted, setIsMuted] = useState(false);
+
   const chatRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
@@ -38,25 +41,28 @@ export default function Chatbot() {
     setLoading(true);
 
     try {
-      console.log("Sending request to backend...");
       const userMessages = messages
         .filter((m) => m.role === "user" || m.role === "assistant")
-        .slice(-6) // last 3 exchanges
+        .slice(-6)
         .map((m) => `${m.role === "user" ? "User" : "Bot"}: ${m.content}`);
 
-      const res = await fetch("https://human-fund-backend.onrender.com/ask", {
+      const backendUrl =
+        process.env.NODE_ENV !== "production"
+          ? "http://127.0.0.1:10000/ask"
+          : "https://human-fund-backend.onrender.com/ask";
+
+      const res = await fetch(backendUrl, {
+
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           question,
           persona: rep,
           history: userMessages,
-      }),
-    });
+        }),
+      });
 
       const data = await res.json();
-      console.log("Received response:", data);
-
       const content = data.answer || `❌ Error: ${data.error || "No answer received."}`;
       const sources = data.sources?.length
         ? `\n\n📄 _Source: ${data.sources.join(", ")}_`
@@ -66,6 +72,20 @@ export default function Chatbot() {
         ...msgs,
         { role: "assistant", content: content + sources },
       ]);
+
+      // 🔊 Audio playback if audio is present
+      if (data.audio && audioRef.current && !isMuted) {
+        const audioBlob = new Blob(
+          [Uint8Array.from(atob(data.audio), (c) => c.charCodeAt(0))],
+          { type: "audio/mp3" }
+        );
+        audioRef.current.src = URL.createObjectURL(audioBlob);
+        audioRef.current.play().catch((err) =>
+          console.error("Audio playback failed:", err)
+        );
+      }
+
+
     } catch (err) {
       console.error("Request failed:", err);
       setMessages((msgs) => [
@@ -195,6 +215,32 @@ export default function Chatbot() {
             Send
           </button>
         </form>
+        <button
+          onClick={() => {
+            setIsMuted((prev) => {
+              const newMuted = !prev;
+              if (newMuted && audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current.currentTime = 0;
+              }
+              return newMuted;
+            });
+          }}
+
+          style={{
+            marginTop: 12,
+            background: isMuted ? "#8CFFDA" : "#fff",
+            color: "#181028",
+            border: "1px solid #8CFFDA",
+            borderRadius: 8,
+            padding: "6px 12px",
+            fontSize: 13,
+            cursor: "pointer",
+          }}
+        >
+          {isMuted ? "Unmute Voice" : "Mute Voice"}
+        </button>
+        <audio ref={audioRef} style={{ display: "none" }} />
       </div>
     </section>
   );
