@@ -75,15 +75,30 @@ export default function Chatbot() {
 
       // 🔊 Audio playback if audio is present
       if (data.audio && audioRef.current && !isMuted) {
-        const audioBlob = new Blob(
-          [Uint8Array.from(atob(data.audio), (c) => c.charCodeAt(0))],
-          { type: "audio/mp3" }
-        );
-        audioRef.current.src = URL.createObjectURL(audioBlob);
-        audioRef.current.play().catch((err) =>
-          console.error("Audio playback failed:", err)
-        );
+        try {
+          const audioBlob = new Blob(
+            [Uint8Array.from(atob(data.audio), (c) => c.charCodeAt(0))],
+            { type: "audio/mp3" }
+          );
+
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audioEl = audioRef.current;
+
+          audioEl.pause(); // Ensure previous audio stops
+          audioEl.src = audioUrl;
+          audioEl.load();
+
+          // Wait 100ms to ensure DOM updates before playing
+          setTimeout(() => {
+            audioEl.play().catch((err) => {
+              console.error("🔊 Audio play error:", err);
+            });
+          }, 100);
+        } catch (err) {
+          console.error("🔊 Audio decoding/playback failed:", err);
+        }
       }
+
 
 
     } catch (err) {
