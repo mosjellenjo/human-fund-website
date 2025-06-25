@@ -54,11 +54,7 @@ export default function Chatbot() {
       const res = await fetch(backendUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          question,
-          persona: rep,
-          history: userMessages,
-        }),
+        body: JSON.stringify({ question, persona: rep, history: userMessages }),
       });
 
       const data = await res.json();
@@ -72,14 +68,12 @@ export default function Chatbot() {
         { role: "assistant", content: content + sources },
       ]);
 
-      // 🔊 Audio playback if audio is present
       if (data.audio && audioRef.current && !isMuted) {
         try {
           const audioBlob = new Blob(
             [Uint8Array.from(atob(data.audio), (c) => c.charCodeAt(0))],
             { type: "audio/mp3" }
           );
-
           const audioUrl = URL.createObjectURL(audioBlob);
           const audioEl = audioRef.current;
 
@@ -87,13 +81,23 @@ export default function Chatbot() {
           audioEl.src = audioUrl;
           audioEl.load();
 
-          audioEl.oncanplaythrough = () => {
-            audioEl
-              .play()
-              .catch((err) => {
-                console.error("🔊 Mobile autoplay block — user interaction required:", err);
-              });
+          // Mobile fix: allow play after user interaction
+          const tryPlay = () => {
+            audioEl.muted = false;
+            audioEl.play().catch((err) => {
+              console.warn("Autoplay failed, waiting for user interaction.");
+              const resume = () => {
+                audioEl.muted = false;
+                audioEl.play().catch(() => {});
+                window.removeEventListener("click", resume);
+                window.removeEventListener("touchstart", resume);
+              };
+              window.addEventListener("click", resume);
+              window.addEventListener("touchstart", resume);
+            });
           };
+
+          tryPlay();
         } catch (err) {
           console.error("🔊 Audio decoding/playback failed:", err);
         }
@@ -233,13 +237,17 @@ export default function Chatbot() {
             Send
           </button>
         </form>
+
         <button
           onClick={() => {
             setIsMuted((prev) => {
               const newMuted = !prev;
-              if (newMuted && audioRef.current) {
+              if (audioRef.current) {
                 audioRef.current.pause();
-                audioRef.current.currentTime = 0;
+                if (newMuted) {
+                  audioRef.current.currentTime = 0;
+                  audioRef.current.src = "";
+                }
               }
               return newMuted;
             });
