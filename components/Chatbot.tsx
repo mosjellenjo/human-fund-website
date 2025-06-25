@@ -50,6 +50,7 @@ export default function Chatbot() {
         process.env.NODE_ENV !== "production"
           ? "http://127.0.0.1:10000/ask"
           : "https://human-fund-backend.onrender.com/ask";
+      console.log("🔁 Using backend:", backendUrl);
 
       const res = await fetch(backendUrl, {
         method: "POST",
