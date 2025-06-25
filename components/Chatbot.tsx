@@ -203,6 +203,12 @@ export default function Chatbot() {
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                sendMessage(e);
+              }
+            }}
             placeholder="Type your question..."
             style={{
               flex: 1,
