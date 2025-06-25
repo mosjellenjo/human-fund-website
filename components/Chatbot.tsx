@@ -52,7 +52,6 @@ export default function Chatbot() {
           : "https://human-fund-backend.onrender.com/ask";
 
       const res = await fetch(backendUrl, {
-
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -84,23 +83,21 @@ export default function Chatbot() {
           const audioUrl = URL.createObjectURL(audioBlob);
           const audioEl = audioRef.current;
 
-          audioEl.pause(); // Ensure previous audio stops
+          audioEl.pause();
           audioEl.src = audioUrl;
           audioEl.load();
 
-          // Wait 100ms to ensure DOM updates before playing
-          setTimeout(() => {
-            audioEl.play().catch((err) => {
-              console.error("🔊 Audio play error:", err);
-            });
-          }, 100);
+          audioEl.oncanplaythrough = () => {
+            audioEl
+              .play()
+              .catch((err) => {
+                console.error("🔊 Mobile autoplay block — user interaction required:", err);
+              });
+          };
         } catch (err) {
           console.error("🔊 Audio decoding/playback failed:", err);
         }
       }
-
-
-
     } catch (err) {
       console.error("Request failed:", err);
       setMessages((msgs) => [
@@ -247,7 +244,6 @@ export default function Chatbot() {
               return newMuted;
             });
           }}
-
           style={{
             marginTop: 12,
             background: isMuted ? "#8CFFDA" : "#fff",
@@ -261,7 +257,7 @@ export default function Chatbot() {
         >
           {isMuted ? "Unmute Voice" : "Mute Voice"}
         </button>
-        <audio ref={audioRef} style={{ display: "none" }} />
+        <audio ref={audioRef} playsInline style={{ display: "none" }} />
       </div>
     </section>
   );
