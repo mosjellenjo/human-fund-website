@@ -22,9 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+            <head>
+        <link rel="canonical" href="https://www.humanfund.no" />
+        <meta name="robots" content="index, follow" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
-        {/* Favicon */}
         <link rel="icon" href="/images/Original_logo_bw_humans3.png" type="image/png" />
         {/* Structured data for Search logo */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: `{
