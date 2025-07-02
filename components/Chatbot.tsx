@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect, FormEvent } from "react";
+import Head from "next/head";
 
 export default function Chatbot() {
   const greetings = {
@@ -82,7 +83,6 @@ export default function Chatbot() {
           audioEl.src = audioUrl;
           audioEl.load();
 
-          // Mobile fix: allow play after user interaction
           const tryPlay = () => {
             audioEl.muted = false;
             audioEl.play().catch((err) => {
@@ -124,150 +124,156 @@ export default function Chatbot() {
   };
 
   return (
-    <section style={{ background: "#0b1f19", padding: "2rem 0", color: "#8CFFDA" }}>
-      <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
-        <h2 style={{ color: "#fff", fontSize: "2rem", fontWeight: 700, marginBottom: "1rem" }}>
-          Ask a Human Fund Representative
-        </h2>
-        <label htmlFor="rep">Choose your representative:</label>
-        <select
-          id="rep"
-          value={rep}
-          onChange={changePersona}
-          style={{
-            marginLeft: 8,
-            padding: 8,
-            borderRadius: 8,
-            border: "1px solid #8CFFDA",
-            background: "#fff",
-            color: "#181028",
-            fontSize: 13,
-            marginBottom: 16,
-          }}
-        >
-          <option value="jerry">JerryAI</option>
-          <option value="george">GeorgeAI</option>
-          <option value="kramer">KramericAI</option>
-          <option value="kruger">KrugerAI</option>
-        </select>
-      </div>
+    <>
+      <Head>
+        <link rel="canonical" href="https://www.humanfund.no/" />
+      </Head>
 
-      <div
-        style={{
-          maxWidth: 600,
-          margin: "0 auto",
-          background: "#0b1f19",
-          border: "2px solid #8CFFDA",
-          borderRadius: 16,
-          padding: 24,
-        }}
-      >
-        <div
-          ref={chatRef}
-          style={{
-            height: 320,
-            overflowY: "auto",
-            marginBottom: 16,
-            paddingRight: 8,
-          }}
-        >
-          {messages.map((msg, i) => (
-            <div
-              key={i}
-              style={{
-                display: "flex",
-                justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
-                margin: "12px 0",
-              }}
-            >
-              <div
-                style={{
-                  background: msg.role === "user" ? "#8CFFDA" : "#fff",
-                  color: msg.role === "user" ? "#181028" : "#000",
-                  borderRadius: 16,
-                  padding: "10px 16px",
-                  maxWidth: "80%",
-                  fontSize: 13,
-                  whiteSpace: "pre-wrap",
-                  lineHeight: 1.3,
-                }}
-              >
-                {msg.content}
-              </div>
-            </div>
-          ))}
-          {loading && (
-            <div style={{ marginTop: 12, fontSize: 13 }}>{thinking[rep]}</div>
-          )}
-        </div>
-
-        <form onSubmit={sendMessage} style={{ display: "flex", gap: 8 }}>
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                sendMessage(e);
-              }
-            }}
-            placeholder="Type your question..."
+      <section style={{ background: "#0b1f19", padding: "2rem 0", color: "#8CFFDA" }}>
+        <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
+          <h2 style={{ color: "#fff", fontSize: "2rem", fontWeight: 700, marginBottom: "1rem" }}>
+            Ask a Human Fund Representative
+          </h2>
+          <label htmlFor="rep">Choose your representative:</label>
+          <select
+            id="rep"
+            value={rep}
+            onChange={changePersona}
             style={{
-              flex: 1,
-              padding: 12,
+              marginLeft: 8,
+              padding: 8,
               borderRadius: 8,
               border: "1px solid #8CFFDA",
-              fontSize: 13,
-              color: "#000",
-            }}
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              background: "#8CFFDA",
+              background: "#fff",
               color: "#181028",
-              border: "none",
+              fontSize: 13,
+              marginBottom: 16,
+            }}
+          >
+            <option value="jerry">JerryAI</option>
+            <option value="george">GeorgeAI</option>
+            <option value="kramer">KramericAI</option>
+            <option value="kruger">KrugerAI</option>
+          </select>
+        </div>
+
+        <div
+          style={{
+            maxWidth: 600,
+            margin: "0 auto",
+            background: "#0b1f19",
+            border: "2px solid #8CFFDA",
+            borderRadius: 16,
+            padding: 24,
+          }}
+        >
+          <div
+            ref={chatRef}
+            style={{
+              height: 320,
+              overflowY: "auto",
+              marginBottom: 16,
+              paddingRight: 8,
+            }}
+          >
+            {messages.map((msg, i) => (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
+                  margin: "12px 0",
+                }}
+              >
+                <div
+                  style={{
+                    background: msg.role === "user" ? "#8CFFDA" : "#fff",
+                    color: msg.role === "user" ? "#181028" : "#000",
+                    borderRadius: 16,
+                    padding: "10px 16px",
+                    maxWidth: "80%",
+                    fontSize: 13,
+                    whiteSpace: "pre-wrap",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {msg.content}
+                </div>
+              </div>
+            ))}
+            {loading && (
+              <div style={{ marginTop: 12, fontSize: 13 }}>{thinking[rep]}</div>
+            )}
+          </div>
+
+          <form onSubmit={sendMessage} style={{ display: "flex", gap: 8 }}>
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  sendMessage(e);
+                }
+              }}
+              placeholder="Type your question..."
+              style={{
+                flex: 1,
+                padding: 12,
+                borderRadius: 8,
+                border: "1px solid #8CFFDA",
+                fontSize: 13,
+                color: "#000",
+              }}
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                background: "#8CFFDA",
+                color: "#181028",
+                border: "none",
+                borderRadius: 8,
+                padding: "0 24px",
+                fontWeight: 600,
+                fontSize: 16,
+                cursor: "pointer",
+              }}
+            >
+              Send
+            </button>
+          </form>
+
+          <button
+            onClick={() => {
+              setIsMuted((prev) => {
+                const newMuted = !prev;
+                if (audioRef.current) {
+                  audioRef.current.pause();
+                  if (newMuted) {
+                    audioRef.current.currentTime = 0;
+                    audioRef.current.src = "";
+                  }
+                }
+                return newMuted;
+              });
+            }}
+            style={{
+              marginTop: 12,
+              background: isMuted ? "#8CFFDA" : "#fff",
+              color: "#181028",
+              border: "1px solid #8CFFDA",
               borderRadius: 8,
-              padding: "0 24px",
-              fontWeight: 600,
-              fontSize: 16,
+              padding: "6px 12px",
+              fontSize: 13,
               cursor: "pointer",
             }}
           >
-            Send
+            {isMuted ? "Unmute Voice" : "Mute Voice"}
           </button>
-        </form>
-
-        <button
-          onClick={() => {
-            setIsMuted((prev) => {
-              const newMuted = !prev;
-              if (audioRef.current) {
-                audioRef.current.pause();
-                if (newMuted) {
-                  audioRef.current.currentTime = 0;
-                  audioRef.current.src = "";
-                }
-              }
-              return newMuted;
-            });
-          }}
-          style={{
-            marginTop: 12,
-            background: isMuted ? "#8CFFDA" : "#fff",
-            color: "#181028",
-            border: "1px solid #8CFFDA",
-            borderRadius: 8,
-            padding: "6px 12px",
-            fontSize: 13,
-            cursor: "pointer",
-          }}
-        >
-          {isMuted ? "Unmute Voice" : "Mute Voice"}
-        </button>
-        <audio ref={audioRef} playsInline style={{ display: "none" }} />
-      </div>
-    </section>
+          <audio ref={audioRef} playsInline style={{ display: "none" }} />
+        </div>
+      </section>
+    </>
   );
 }

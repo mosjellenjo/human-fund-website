@@ -1,5 +1,9 @@
+# *
 User-agent: *
-Disallow: /*?
 Allow: /
 
+# Host
+Host: https://www.humanfund.no
+
+# Sitemaps
 Sitemap: https://www.humanfund.no/sitemap.xml
