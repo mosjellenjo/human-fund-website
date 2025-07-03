@@ -6,4 +6,4 @@ Allow: /
 Host: https://www.humanfund.no
 
 # Sitemaps
-Sitemap: https://www.humanfund.no/sitemap.xml
+Sitemap: https://www.humanfund.no/sitemap-0.xml
