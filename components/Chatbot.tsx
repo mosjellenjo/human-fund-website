@@ -129,7 +129,7 @@ export default function Chatbot() {
         <link rel="canonical" href="https://www.humanfund.no/" />
       </Head>
 
-      <section style={{ background: "#0b1f19", padding: "2rem 0", color: "#8CFFDA" }}>
+      <section className="bg-dark-green text-light-green-text py-8">
         <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
           <h2 style={{ color: "#fff", fontSize: "2rem", fontWeight: 700, marginBottom: "1rem" }}>
             Ask a Human Fund Representative
@@ -157,16 +157,7 @@ export default function Chatbot() {
           </select>
         </div>
 
-        <div
-          style={{
-            maxWidth: 600,
-            margin: "0 auto",
-            background: "#0b1f19",
-            border: "2px solid #8CFFDA",
-            borderRadius: 16,
-            padding: 24,
-          }}
-        >
+        <div className="max-w-[600px] mx-auto bg-dark-green border-2 border-button-yellow rounded-2xl p-6">
           <div
             ref={chatRef}
             style={{

@@ -30,6 +30,9 @@ export function HeroSection() {
           <Button size="lg" variant="outline" className="px-8 bg-button-yellow text-black border-button-yellow hover:bg-white hover:text-black" asChild>
             <a href="#mission">Learn More</a>
           </Button>
+          <Button size="lg" className="px-8 bg-button-yellow text-black hover:bg-white hover:text-black" asChild>
+            <a href="https://thehumanfund.no/" target="_blank" rel="noopener">Explore The Human Fund AI</a>
+          </Button>
         </div>
         <div className="pt-12 flex flex-col sm:flex-row items-center justify-center gap-8">
           <div className="flex flex-col items-center">

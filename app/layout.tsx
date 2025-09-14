@@ -27,12 +27,18 @@ export default function RootLayout({
         <meta name="robots" content="index, follow" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
         <link rel="icon" href="/images/Original_logo_bw_humans3.png" type="image/png" />
-        {/* Structured data for Search logo */}
+        {/* Structured data for Search */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: `{
           "@context": "https://schema.org",
           "@type": "Organization",
+          "name": "The Human Fund",
           "url": "https://humanfund.no",
-          "logo": "https://humanfund.no/images/Original_logo_bw_humans3.png"
+          "logo": "https://humanfund.no/images/Original_logo_bw_humans3.png",
+          "subOrganization": {
+            "@type": "Organization",
+            "name": "The Human Fund AI",
+            "url": "https://thehumanfund.no/"
+          }
         }` }} />
       </head>
       <body suppressHydrationWarning>

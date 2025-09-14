@@ -17,6 +17,9 @@ export function SiteFooter() {
           <Link href="/festivus" className="text-sm text-gray-300 underline-offset-4 hover:underline hover:text-white">
             Festivus
           </Link>
+          <a href="https://thehumanfund.no/" target="_blank" rel="noopener" className="text-sm text-gray-300 underline-offset-4 hover:underline hover:text-white">
+            The Human Fund AI
+          </a>
         </div>
       </div>
     </footer>

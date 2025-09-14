@@ -11,6 +11,9 @@ export function MissionSection() {
             <p className="max-w-[900px] text-light-green-text md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               The Human Fund exists to help people who need money get money. It's that simple.
             </p>
+            <p className="max-w-[900px] text-light-green-text md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              Our research arm, <a href="https://thehumanfund.no/" target="_blank" rel="noopener" className="underline decoration-button-yellow underline-offset-4 hover:text-white">The Human Fund AI</a>, explores AI‑powered stock analysis and decision support. It grew out of our mission to help people make smarter financial choices.
+            </p>
           </div>
         </div>
         <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
