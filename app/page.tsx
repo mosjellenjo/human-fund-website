@@ -1,6 +1,7 @@
 import Chatbot from '@/components/Chatbot';
 import { HeroSection } from "@/components/hero-section"
 import { MissionSection } from "@/components/mission-section"
+import { AICallout } from "@/components/ai-callout"
 import { ImpactSection } from "@/components/impact-section"
 import { TeamSection } from "@/components/team-section"
 import { ContactSection } from "@/components/contact-section"
@@ -16,6 +17,7 @@ export default function Home() {
         <HeroSection />
         <MissionSection />
         <Chatbot />
+        <AICallout />
         <ImpactSection />
         <TeamSection />
         <ContactSection />

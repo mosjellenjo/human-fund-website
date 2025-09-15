@@ -8,21 +8,24 @@ export function SiteHeader() {
 
   useEffect(() => {
     const ids = ["mission", "impact", "team", "contact"] as const;
-    const headerOffset = 80; // sticky header height buffer
+    const headerOffset = 72; // sticky header height buffer
 
     let ticking = false;
 
     const updateActive = () => {
-      const scrollPos = window.scrollY + headerOffset;
       let current = "";
       for (const id of ids) {
         const el = document.getElementById(id);
         if (!el) continue;
-        if (el.offsetTop <= scrollPos) {
+        const rect = el.getBoundingClientRect();
+        const topThreshold = headerOffset + 1;
+        const within = rect.top <= topThreshold && rect.bottom > topThreshold;
+        if (within) {
           current = id;
+          break;
         }
       }
-      if (current && current !== active) setActive(current);
+      if (current !== active) setActive(current);
       ticking = false;
     };
 
@@ -75,10 +78,10 @@ export function SiteHeader() {
           </Link>
         </nav>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="hidden sm:flex bg-button-yellow text-black border-button-yellow hover:bg-white hover:text-black">
+          <Button variant="brand" size="sm" className="hidden sm:flex">
             Sign In
           </Button>
-          <Button size="sm" asChild className="bg-button-yellow text-black hover:bg-white hover:text-black">
+          <Button variant="brand" size="sm" asChild>
             <a href="#contact">Donate Now</a>
           </Button>
         </div>

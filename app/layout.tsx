@@ -42,6 +42,7 @@ export default function RootLayout({
         }` }} />
       </head>
       <body suppressHydrationWarning>
+        <div className="hf-aurora-soft" aria-hidden></div>
         {children}
         <Analytics />
       </body>

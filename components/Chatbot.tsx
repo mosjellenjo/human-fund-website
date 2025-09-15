@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect, FormEvent } from "react";
 import Head from "next/head";
 import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/reveal";
 
 export default function Chatbot() {
   const greetings = {
@@ -131,7 +132,7 @@ export default function Chatbot() {
       </Head>
 
       <section className="bg-dark-green text-light-green-text py-8">
-        <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
+        <Reveal className="max-w-[600px] mx-auto text-center">
           <h2 style={{ color: "#fff", fontSize: "2rem", fontWeight: 700, marginBottom: "1rem" }}>
             Ask a Human Fund Representative
           </h2>
@@ -147,9 +148,9 @@ export default function Chatbot() {
             <option value="kramer">KramericAI</option>
             <option value="kruger">KrugerAI</option>
           </select>
-        </div>
+        </Reveal>
 
-        <div className="max-w-[600px] mx-auto bg-brand-bg-elevated border border-brand-accent/30 rounded-2xl p-6">
+        <Reveal className="max-w-[600px] mx-auto hf-glass p-6">
           <div ref={chatRef} className="h-80 overflow-y-auto mb-4 pr-2" aria-live="polite" aria-atomic="false">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} my-3`}>
@@ -200,7 +201,7 @@ export default function Chatbot() {
             {isMuted ? "Unmute Voice" : "Mute Voice"}
           </Button>
           <audio ref={audioRef} playsInline style={{ display: "none" }} />
-        </div>
+        </Reveal>
       </section>
     </>
   );

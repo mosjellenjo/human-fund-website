@@ -22,6 +22,8 @@ const buttonVariants = cva(
         brand: "bg-brand-accent text-black border border-brand-accent hover:bg-white hover:text-black",
         brandOutline:
           "border border-brand-accent bg-transparent text-brand-accent hover:bg-white hover:text-black",
+        brandGlass:
+          "bg-brand-accent/80 backdrop-blur text-black border border-brand-accent hover:bg-white hover:text-black",
       },
       size: {
         default: "h-10 px-4 py-2",

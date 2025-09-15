@@ -83,4 +83,29 @@
   .hf-hero-title { @apply text-5xl sm:text-6xl md:text-7xl lg:text-7xl font-bold tracking-tight text-white; }
   .hf-hero-sub { @apply max-w-[700px] text-gray-300 md:text-xl; }
   .hf-prose-dark { @apply max-w-3xl mx-auto text-gray-300 leading-relaxed text-base md:text-lg; }
+
+  /* Glassmorphism utilities */
+  .hf-glass { @apply bg-dark-green/70 backdrop-blur-md border border-brand-accent/20 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.25)]; }
+  .hf-glass-strong { @apply bg-dark-green/60 backdrop-blur-lg border border-brand-accent/25 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35)]; }
+
+  /* Aurora animated background for hero */
+  .hf-aurora { position: absolute; inset: 0; pointer-events: none; opacity: 0.35; filter: blur(24px); background:
+    radial-gradient(600px 400px at 10% 20%, rgba(140,255,218,0.25), transparent 60%),
+    radial-gradient(500px 400px at 80% 10%, rgba(255,255,255,0.12), transparent 60%),
+    radial-gradient(700px 500px at 40% 90%, rgba(140,255,218,0.18), transparent 60%);
+    animation: auroraMove 22s ease-in-out infinite alternate; }
+  /* Softer page-wide aurora overlay */
+  .hf-aurora-soft { position: fixed; inset: 0; pointer-events: none; opacity: 0.22; filter: blur(20px); background:
+    radial-gradient(800px 500px at 15% 25%, rgba(140,255,218,0.18), transparent 60%),
+    radial-gradient(600px 450px at 85% 15%, rgba(255,255,255,0.08), transparent 60%),
+    radial-gradient(900px 600px at 45% 85%, rgba(140,255,218,0.12), transparent 60%);
+    animation: auroraMove 28s ease-in-out infinite alternate; }
+  @keyframes auroraMove {
+    0% { transform: translate3d(0,0,0) scale(1); }
+    50% { transform: translate3d(0,-1%,0) scale(1.02); }
+    100% { transform: translate3d(0,1%,0) scale(1.01); }
+  }
+
+  /* Recharts bar hover: emphasize hovered bar without white overlays */
+  [data-chart] .recharts-rectangle:hover { stroke: rgba(140,255,218,0.9); stroke-width: 2px; filter: brightness(1.12) saturate(1.05); }
 }

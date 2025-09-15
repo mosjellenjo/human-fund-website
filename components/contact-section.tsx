@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Reveal } from "@/components/reveal"
 import emailjs from 'emailjs-com'
 
 export function ContactSection() {
@@ -50,17 +51,17 @@ export function ContactSection() {
   return (
     <section id="contact" className="w-full hf-section bg-dark-green text-white">
       <div className="hf-container">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+        <Reveal className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
             <h2 className="hf-heading">Contact & Donations</h2>
             <p className="max-w-[900px] text-gray-300 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               Have questions or want to make a donation? Fill out the form below and we'll get back to you as soon as possible.
             </p>
           </div>
-        </div>
-        <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+        </Reveal>
+        <Reveal className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
           <div>
-            <Card className="bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
+            <Card className="hf-glass text-light-green-text">
               <CardHeader>
                 {/* Removed Contact Us title and description for clarity */}
               </CardHeader>
@@ -186,7 +187,7 @@ export function ContactSection() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

@@ -18,7 +18,7 @@ export function TeamSection() {
           <Card className="overflow-hidden bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
             <CardHeader className="p-0">
               <div className="h-60 w-full relative overflow-hidden">
-                <Image src="/images/Joseph 3.png" alt="Joseph B. Dale" fill className="object-cover object-[center_30%]" />
+                <Image src="/images/Joseph 3.png" alt="Joseph B. Dale" fill className="object-cover object-[center_28%] scale-[1.42]" />
               </div>
             </CardHeader>
             <CardContent className="p-6">

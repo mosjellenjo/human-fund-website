@@ -1,20 +1,12 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { Reveal } from "@/components/reveal"
 
 export function HeroSection() {
   return (
     <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-dark-green text-light-green-text">
-      {/* <div className="absolute inset-0 z-0">
-        <Image
-          src="/placeholder.svg?height=1080&width=1920"
-          alt="People helping people"
-          fill
-          className="object-cover opacity-20"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-background/60" />
-      </div> */}
-      <div className="container relative z-10 px-4 md:px-6 flex flex-col items-center text-center space-y-8 py-24">
+      <div className="hf-aurora" aria-hidden />
+      <Reveal className="container relative z-10 px-4 md:px-6 flex flex-col items-center text-center space-y-8 py-24">
         <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm text-black">Established 1997</div>
         <h1 className="hf-hero-title max-w-3xl">
           Money for People
@@ -50,7 +42,15 @@ export function HeroSection() {
             <span className="text-light-green-text">Lives Improved</span>
           </div>
         </div>
-      </div>
+      </Reveal>
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(4,31,30,0.0) 0%, rgba(4,31,30,0.25) 30%, rgba(4,31,30,0.5) 50%, rgba(4,31,30,0.25) 70%, rgba(4,31,30,0.0) 100%)",
+        }}
+        aria-hidden
+      />
     </section>
   )
 }

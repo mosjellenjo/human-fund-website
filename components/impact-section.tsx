@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts"
+import { Reveal } from "@/components/reveal"
 import { useEffect, useState } from "react"
 
 const impactData = [
@@ -29,28 +30,28 @@ export function ImpactSection() {
   return (
     <section id="impact" className="w-full hf-section bg-dark-green text-light-green-text">
       <div className="hf-container">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+        <Reveal className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
             <h2 className="hf-heading">Our Impact</h2>
             <p className="max-w-[900px] text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               See how your support has made a difference in the lives of people everywhere.
             </p>
           </div>
-        </div>
-        <div className="mx-auto max-w-4xl py-12">
+        </Reveal>
+        <Reveal className="mx-auto max-w-4xl py-12">
           <Tabs defaultValue="volunteers" className="w-full">
             <TabsList aria-label="Impact charts" className="grid w-full grid-cols-2 bg-brand-bg-elevated text-light-green-text">
               <TabsTrigger value="volunteers" className="data-[state=active]:bg-brand-bg data-[state=active]:text-light-green-text">Volunteers</TabsTrigger>
               <TabsTrigger value="projects" className="data-[state=active]:bg-brand-bg data-[state=active]:text-light-green-text">Projects</TabsTrigger>
             </TabsList>
             <TabsContent value="volunteers" className="pt-4">
-              <Card className="bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
+              <Card className="hf-glass text-light-green-text">
                 <CardHeader>
                   <CardTitle>Annual Volunteers</CardTitle>
                   <CardDescription className="text-gray-400">Total volunteers engaged per year</CardDescription>
                 </CardHeader>
                 <CardContent className="overflow-x-auto w-full">
-                  <div className="min-w-[350px] sm:min-w-0 w-full bg-brand-bg rounded-lg p-4">
+                  <div className="min-w-[350px] sm:min-w-0 w-full bg-dark-green/70 backdrop-blur rounded-lg p-4">
                     <ChartContainer
                       config={{
                         volunteers: {
@@ -65,8 +66,8 @@ export function ImpactSection() {
                           <CartesianGrid strokeDasharray="3 3" stroke="#35504a" />
                           <XAxis dataKey="year" padding={{ right: 30 }} stroke="#cbd5e1" />
                           <YAxis width={48} tickFormatter={(value) => (value / 10).toString()} stroke="#cbd5e1" />
-                          <ChartTooltip content={<ChartTooltipContent />} />
-                          <Bar dataKey="volunteers" fill="hsl(var(--button-yellow))" />
+                          <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                          <Bar dataKey="volunteers" fill="hsl(var(--button-yellow))" activeBar={{ fill: "hsl(var(--button-yellow))", fillOpacity: 1, stroke: "rgba(140,255,218,0.9)", strokeWidth: 1.2 }} />
                         </BarChart>
                       </ResponsiveContainer>
                     </ChartContainer>
@@ -75,13 +76,13 @@ export function ImpactSection() {
               </Card>
             </TabsContent>
             <TabsContent value="projects" className="pt-4">
-              <Card className="bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
+              <Card className="hf-glass text-light-green-text">
                 <CardHeader>
                   <CardTitle>Projects Completed</CardTitle>
                   <CardDescription className="text-gray-400">Number of projects completed per year</CardDescription>
                 </CardHeader>
                 <CardContent className="overflow-x-auto w-full">
-                  <div className="min-w-[350px] sm:min-w-0 w-full bg-brand-bg rounded-lg p-4">
+                  <div className="min-w-[350px] sm:min-w-0 w-full bg-dark-green/70 backdrop-blur rounded-lg p-4">
                     <ChartContainer
                       config={{
                         projects: {
@@ -96,8 +97,8 @@ export function ImpactSection() {
                           <CartesianGrid strokeDasharray="3 3" stroke="#35504a" />
                           <XAxis dataKey="year" padding={{ right: 30 }} stroke="#cbd5e1" />
                           <YAxis width={48} tickFormatter={(value) => (value / 2).toString()} stroke="#cbd5e1" />
-                          <ChartTooltip content={<ChartTooltipContent />} />
-                          <Bar dataKey="projects" fill="hsl(var(--light-green))" />
+                          <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                          <Bar dataKey="projects" fill="hsl(var(--light-green))" activeBar={{ fill: "hsl(var(--light-green))", fillOpacity: 1, stroke: "rgba(140,255,218,0.9)", strokeWidth: 1.2 }} />
                         </BarChart>
                       </ResponsiveContainer>
                     </ChartContainer>
@@ -106,9 +107,9 @@ export function ImpactSection() {
               </Card>
             </TabsContent>
           </Tabs>
-        </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          <Card className="bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
+        </Reveal>
+        <Reveal className="grid gap-6 md:grid-cols-3">
+          <Card className="hf-glass text-light-green-text">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Education Initiatives</CardTitle>
             </CardHeader>
@@ -117,7 +118,7 @@ export function ImpactSection() {
               <p className="text-xs text-gray-400">Schools supported across 15 countries</p>
             </CardContent>
           </Card>
-          <Card className="bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
+          <Card className="hf-glass text-light-green-text">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Healthcare Programs</CardTitle>
             </CardHeader>
@@ -126,7 +127,7 @@ export function ImpactSection() {
               <p className="text-xs text-gray-400">Medical facilities funded and supported</p>
             </CardContent>
           </Card>
-          <Card className="bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
+          <Card className="hf-glass text-light-green-text">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Festivus Celebrations</CardTitle>
             </CardHeader>
@@ -135,7 +136,7 @@ export function ImpactSection() {
               <p className="text-xs text-gray-400">Aluminum poles distributed worldwide</p>
             </CardContent>
           </Card>
-        </div>
+        </Reveal>
       </div>
     </section>
   )
