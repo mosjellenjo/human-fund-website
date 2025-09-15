@@ -150,7 +150,7 @@ export default function Chatbot() {
         </div>
 
         <div className="max-w-[600px] mx-auto bg-brand-bg-elevated border border-brand-accent/30 rounded-2xl p-6">
-          <div ref={chatRef} className="h-80 overflow-y-auto mb-4 pr-2">
+          <div ref={chatRef} className="h-80 overflow-y-auto mb-4 pr-2" aria-live="polite" aria-atomic="false">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} my-3`}>
                 <div className={`${msg.role === "user" ? "bg-brand-accent text-black" : "bg-white text-black"} rounded-2xl px-4 py-2 max-w-[80%] text-sm whitespace-pre-wrap leading-snug`}>
@@ -161,7 +161,7 @@ export default function Chatbot() {
             {loading && (<div className="mt-3 text-sm">{thinking[rep]}</div>)}
           </div>
 
-          <form onSubmit={sendMessage} className="flex gap-2">
+          <form onSubmit={sendMessage} className="flex gap-2" aria-label="Send a message to the Human Fund representative">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -174,7 +174,7 @@ export default function Chatbot() {
               placeholder="Type your question..."
               className="flex-1 px-3 py-3 rounded-md border border-brand-accent bg-brand-bg-elevated text-white text-sm placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-accent/60"
             />
-            <Button type="submit" variant="brand" disabled={loading} className="px-6">
+            <Button type="submit" variant="brand" aria-label="Send message" disabled={loading} className="px-6">
               Send
             </Button>
           </form>
@@ -193,6 +193,7 @@ export default function Chatbot() {
                 return newMuted;
               });
             }}
+            aria-label={isMuted ? "Unmute voice" : "Mute voice"}
             variant={isMuted ? "brand" : "brandOutline"}
             className="mt-3 text-sm px-4 py-2"
           >
