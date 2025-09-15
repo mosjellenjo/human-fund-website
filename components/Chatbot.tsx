@@ -175,7 +175,7 @@ export default function Chatbot() {
               placeholder="Type your question..."
               className="flex-1 px-3 py-3 rounded-md border border-brand-accent bg-brand-bg-elevated text-white text-sm placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-accent/60"
             />
-            <Button type="submit" variant="brand" aria-label="Send message" disabled={loading} className="px-6">
+            <Button type="submit" variant="brandFancy" aria-label="Send message" disabled={loading} className="px-6">
               Send
             </Button>
           </form>

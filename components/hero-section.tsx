@@ -16,13 +16,13 @@ export function HeroSection() {
           Festivus season.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
-          <Button size="lg" variant="brand" className="px-8" asChild>
+          <Button size="lg" variant="brandFancy" className="px-8" asChild>
             <a href="#contact">Donate Now</a>
           </Button>
-          <Button size="lg" variant="brand" className="px-8" asChild>
+          <Button size="lg" variant="brandFancy" className="px-8" asChild>
             <a href="#mission">Learn More</a>
           </Button>
-          <Button size="lg" variant="brand" className="px-8" asChild>
+          <Button size="lg" variant="brandFancy" className="px-8" asChild>
             <a href="https://thehumanfund.no/" target="_blank" rel="noopener">Explore The Human Fund AI</a>
           </Button>
         </div>

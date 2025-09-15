@@ -22,8 +22,8 @@ const buttonVariants = cva(
         brand: "bg-brand-accent text-black border border-brand-accent hover:bg-white hover:text-black",
         brandOutline:
           "border border-brand-accent bg-transparent text-brand-accent hover:bg-white hover:text-black",
-        brandGlass:
-          "bg-brand-accent/80 backdrop-blur text-black border border-brand-accent hover:bg-white hover:text-black",
+        brandFancy:
+          "relative overflow-hidden group text-black border border-brand-accent shadow-[0_8px_24px_rgba(140,255,218,0.25)] bg-gradient-to-b from-[hsl(var(--brand-accent))] to-[rgba(140,255,218,0.9)] hover:from-white hover:to-white hover:text-black hover:ring-2 hover:ring-brand-accent/60 hover:shadow-[0_18px_36px_rgba(140,255,218,0.55)] transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(to_bottom,rgba(255,255,255,0.35),rgba(255,255,255,0.08))] before:opacity-30 group-hover:before:opacity-10 before:transition-opacity",
       },
       size: {
         default: "h-10 px-4 py-2",

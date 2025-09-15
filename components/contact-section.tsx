@@ -152,7 +152,7 @@ export function ContactSection() {
                         required
                       />
                     </div>
-                    <Button type="submit" variant="brand" className="w-full">
+                    <Button type="submit" variant="brandFancy" className="w-full">
                       Send Message
                     </Button>
                   </form>

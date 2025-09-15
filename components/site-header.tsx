@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
@@ -59,6 +60,7 @@ export function SiteHeader() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center space-x-2 text-white">
+            <Image src="/images/Original_logo_bw_humans3 - white.png" alt="The Human Fund" width={24} height={24} className="mr-1 -mt-0.5" />
             <span className="text-xl font-bold tracking-tight">The Human Fund</span>
           </Link>
           <span className="text-xs text-light-green-text hidden sm:inline-block">Money for People</span>
@@ -78,10 +80,10 @@ export function SiteHeader() {
           </Link>
         </nav>
         <div className="flex items-center gap-2">
-          <Button variant="brand" size="sm" className="hidden sm:flex">
+          <Button variant="brandFancy" size="sm" className="hidden sm:flex">
             Sign In
           </Button>
-          <Button variant="brand" size="sm" asChild>
+          <Button variant="brandFancy" size="sm" asChild>
             <a href="#contact">Donate Now</a>
           </Button>
         </div>
