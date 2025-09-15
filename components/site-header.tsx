@@ -7,31 +7,42 @@ export function SiteHeader() {
   const [active, setActive] = useState<string>("");
 
   useEffect(() => {
-    const ids = ["mission", "impact", "team", "contact"];
-    const observers: IntersectionObserver[] = [];
+    const ids = ["mission", "impact", "team", "contact"] as const;
+    const headerOffset = 80; // sticky header height buffer
 
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) setActive(id);
-          });
-        },
-        {
-          root: null,
-          // Trigger when section is near the middle of viewport
-          rootMargin: "-45% 0px -45% 0px",
-          threshold: [0, 0.25, 0.5, 0.75, 1],
+    let ticking = false;
+
+    const updateActive = () => {
+      const scrollPos = window.scrollY + headerOffset;
+      let current = "";
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.offsetTop <= scrollPos) {
+          current = id;
         }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
+      }
+      if (current && current !== active) setActive(current);
+      ticking = false;
+    };
 
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateActive);
+        ticking = true;
+      }
+    };
+
+    // Initialize and bind
+    updateActive();
+    window.addEventListener("scroll", onScroll);
+    window.addEventListener("resize", updateActive);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", updateActive);
+    };
+  }, [active]);
 
   const navClass = (id: string) =>
     `text-sm font-medium transition-colors rounded-md px-2 py-1 ${
