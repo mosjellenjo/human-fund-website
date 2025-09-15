@@ -60,7 +60,7 @@ export function ContactSection() {
         </div>
         <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
           <div>
-            <Card className="bg-contrast-bg-dark text-light-green-text border-gray-700">
+            <Card className="bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
               <CardHeader>
                 {/* Removed Contact Us title and description for clarity */}
               </CardHeader>
@@ -71,7 +71,7 @@ export function ContactSection() {
                       <h3 className="text-2xl font-bold text-white">Thank You!</h3>
                       <p className="text-light-green-text">Your message has been received. We'll be in touch soon.</p>
                     </div>
-                    <Button onClick={() => setFormState({ ...formState, submitted: false })} className="bg-button-yellow text-black hover:bg-yellow-300">
+                    <Button onClick={() => setFormState({ ...formState, submitted: false })} variant="brand">
                       Send Another Message
                     </Button>
                   </div>
@@ -91,7 +91,7 @@ export function ContactSection() {
                         onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                         placeholder="Enter your name"
                         required
-                        className="bg-gray-700 text-white border-gray-600"
+                        className="bg-brand-bg-elevated text-white border-brand-accent/30 focus-visible:ring-brand-accent/50"
                       />
                     </div>
                     <div className="space-y-2">
@@ -109,7 +109,7 @@ export function ContactSection() {
                         onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                         placeholder="Enter your email"
                         required
-                        className="bg-gray-700 text-white border-gray-600"
+                        className="bg-brand-bg-elevated text-white border-brand-accent/30 focus-visible:ring-brand-accent/50"
                       />
                     </div>
                     <div className="space-y-2">
@@ -124,14 +124,14 @@ export function ContactSection() {
                         name="donation_cause"
                         value={formState.donationCause || ''}
                         onChange={e => setFormState({ ...formState, donationCause: e.target.value })}
-                        className="flex h-10 w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-base text-white ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:text-sm"
+                        className="flex h-10 w-full rounded-md border border-brand-accent/30 bg-brand-bg-elevated px-3 py-2 text-base text-white ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/50 focus-visible:ring-offset-2 md:text-sm"
                       >
-                        <option value="" className="bg-gray-700">General Inquiry</option>
-                        <option value="Festivus for the Rest of Us" className="bg-gray-700">Festivus for the Rest of Us — Keep the tradition alive — aluminum poles aren't cheap.</option>
-                        <option value="The Anti-Dentite Defense Fund" className="bg-gray-700">The Anti-Dentite Defense Fund — Fighting unfair bias against dentists everywhere.</option>
-                        <option value="Serenity Now Research Initiative" className="bg-gray-700">Serenity Now Research Initiative — Advancing anger management through loud shouting.</option>
-                        <option value="Save the Kramerica Intern Program" className="bg-gray-700">Save the Kramerica Intern Program — One intern. One oil bladder. Endless possibilities.</option>
-                        <option value="The Vandelay Industries Innovation Lab" className="bg-gray-700">The Vandelay Industries Innovation Lab — Supporting latex research and import-export operations.</option>
+                        <option value="" className="bg-brand-bg-elevated">General Inquiry</option>
+                        <option value="Festivus for the Rest of Us" className="bg-brand-bg-elevated">Festivus for the Rest of Us — Keep the tradition alive — aluminum poles aren't cheap.</option>
+                        <option value="The Anti-Dentite Defense Fund" className="bg-brand-bg-elevated">The Anti-Dentite Defense Fund — Fighting unfair bias against dentists everywhere.</option>
+                        <option value="Serenity Now Research Initiative" className="bg-brand-bg-elevated">Serenity Now Research Initiative — Advancing anger management through loud shouting.</option>
+                        <option value="Save the Kramerica Intern Program" className="bg-brand-bg-elevated">Save the Kramerica Intern Program — One intern. One oil bladder. Endless possibilities.</option>
+                        <option value="The Vandelay Industries Innovation Lab" className="bg-brand-bg-elevated">The Vandelay Industries Innovation Lab — Supporting latex research and import-export operations.</option>
                       </select>
                     </div>
                     <div className="space-y-2">
@@ -147,11 +147,11 @@ export function ContactSection() {
                         value={formState.message}
                         onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                         placeholder="Enter your message"
-                        className="min-h-[120px] bg-gray-700 text-white border-gray-600"
+                        className="min-h-[120px] bg-brand-bg-elevated text-white border-brand-accent/30 focus-visible:ring-brand-accent/50"
                         required
                       />
                     </div>
-                    <Button type="submit" className="w-full bg-button-yellow text-black hover:bg-white hover:text-black">
+                    <Button type="submit" variant="brand" className="w-full">
                       Send Message
                     </Button>
                   </form>

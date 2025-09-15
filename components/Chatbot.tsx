@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect, FormEvent } from "react";
 import Head from "next/head";
+import { Button } from "@/components/ui/button";
 
 export default function Chatbot() {
   const greetings = {
@@ -139,16 +140,7 @@ export default function Chatbot() {
             id="rep"
             value={rep}
             onChange={changePersona}
-            style={{
-              marginLeft: 8,
-              padding: 8,
-              borderRadius: 8,
-              border: "1px solid #8CFFDA",
-              background: "#fff",
-              color: "#181028",
-              fontSize: 13,
-              marginBottom: 16,
-            }}
+            className="ml-2 mb-4 px-3 py-2 rounded-md border border-brand-accent bg-white text-black text-sm"
           >
             <option value="jerry">JerryAI</option>
             <option value="george">GeorgeAI</option>
@@ -157,47 +149,19 @@ export default function Chatbot() {
           </select>
         </div>
 
-        <div className="max-w-[600px] mx-auto bg-dark-green border-2 border-button-yellow rounded-2xl p-6">
-          <div
-            ref={chatRef}
-            style={{
-              height: 320,
-              overflowY: "auto",
-              marginBottom: 16,
-              paddingRight: 8,
-            }}
-          >
+        <div className="max-w-[600px] mx-auto bg-brand-bg-elevated border border-brand-accent/30 rounded-2xl p-6">
+          <div ref={chatRef} className="h-80 overflow-y-auto mb-4 pr-2">
             {messages.map((msg, i) => (
-              <div
-                key={i}
-                style={{
-                  display: "flex",
-                  justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
-                  margin: "12px 0",
-                }}
-              >
-                <div
-                  style={{
-                    background: msg.role === "user" ? "#8CFFDA" : "#fff",
-                    color: msg.role === "user" ? "#181028" : "#000",
-                    borderRadius: 16,
-                    padding: "10px 16px",
-                    maxWidth: "80%",
-                    fontSize: 13,
-                    whiteSpace: "pre-wrap",
-                    lineHeight: 1.3,
-                  }}
-                >
+              <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} my-3`}>
+                <div className={`${msg.role === "user" ? "bg-brand-accent text-black" : "bg-white text-black"} rounded-2xl px-4 py-2 max-w-[80%] text-sm whitespace-pre-wrap leading-snug`}>
                   {msg.content}
                 </div>
               </div>
             ))}
-            {loading && (
-              <div style={{ marginTop: 12, fontSize: 13 }}>{thinking[rep]}</div>
-            )}
+            {loading && (<div className="mt-3 text-sm">{thinking[rep]}</div>)}
           </div>
 
-          <form onSubmit={sendMessage} style={{ display: "flex", gap: 8 }}>
+          <form onSubmit={sendMessage} className="flex gap-2">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -208,34 +172,14 @@ export default function Chatbot() {
                 }
               }}
               placeholder="Type your question..."
-              style={{
-                flex: 1,
-                padding: 12,
-                borderRadius: 8,
-                border: "1px solid #8CFFDA",
-                fontSize: 13,
-                color: "#000",
-              }}
+              className="flex-1 px-3 py-3 rounded-md border border-brand-accent bg-brand-bg-elevated text-white text-sm placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-accent/60"
             />
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                background: "#8CFFDA",
-                color: "#181028",
-                border: "none",
-                borderRadius: 8,
-                padding: "0 24px",
-                fontWeight: 600,
-                fontSize: 16,
-                cursor: "pointer",
-              }}
-            >
+            <Button type="submit" variant="brand" disabled={loading} className="px-6">
               Send
-            </button>
+            </Button>
           </form>
 
-          <button
+          <Button
             onClick={() => {
               setIsMuted((prev) => {
                 const newMuted = !prev;
@@ -249,19 +193,11 @@ export default function Chatbot() {
                 return newMuted;
               });
             }}
-            style={{
-              marginTop: 12,
-              background: isMuted ? "#8CFFDA" : "#fff",
-              color: "#181028",
-              border: "1px solid #8CFFDA",
-              borderRadius: 8,
-              padding: "6px 12px",
-              fontSize: 13,
-              cursor: "pointer",
-            }}
+            variant={isMuted ? "brand" : "brandOutline"}
+            className="mt-3 text-sm px-4 py-2"
           >
             {isMuted ? "Unmute Voice" : "Mute Voice"}
-          </button>
+          </Button>
           <audio ref={audioRef} playsInline style={{ display: "none" }} />
         </div>
       </section>

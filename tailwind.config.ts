@@ -25,6 +25,13 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        brand: {
+          bg: 'hsl(var(--brand-bg))',
+          'bg-elevated': 'hsl(var(--brand-bg-elevated))',
+          fg: 'hsl(var(--brand-fg))',
+          accent: 'hsl(var(--brand-accent))',
+          border: 'hsl(var(--brand-border))',
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -59,7 +66,8 @@ const config = {
         },
         'dark-green': 'hsl(var(--dark-green))',
         'light-green-text': 'hsl(var(--light-green))',
-        'button-yellow': 'hsl(var(--button-yellow))',
+        'button-yellow': 'hsl(var(--button-yellow))', // legacy alias for brand.accent
+        'brand-accent': 'hsl(var(--brand-accent))',
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -43,6 +43,13 @@
     --contrast-bg-dark: 140, 11%, 34%; /* #4D5D53 */
     --contrast-bg-light: 120, 100%, 97%; /* #F0FFF0 */
     --chart-background: 40, 84%, 75%; /* #F7DBA7 */
+
+    /* Brand semantic tokens */
+    --brand-bg: 155, 67%, 7%; /* matches dark-green */
+    --brand-bg-elevated: 155, 32%, 12%; /* subtle elevation on dark surfaces */
+    --brand-fg: 0, 0%, 100%; /* white text on dark bg */
+    --brand-accent: 161, 100%, 75%; /* matches button-yellow (mint) */
+    --brand-border: 161, 100%, 75%; /* accent-colored borders by default */
   }
 }
 
