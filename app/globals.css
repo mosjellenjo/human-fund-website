@@ -72,3 +72,15 @@
     text-wrap: balance;
   }
 }
+
+/* Reusable brand components */
+@layer components {
+  .hf-section { @apply py-16 md:py-24; }
+  .hf-container { @apply container px-4 md:px-6; }
+  .hf-heading { @apply text-3xl font-bold tracking-tighter sm:text-5xl text-white; }
+  .hf-subtext { @apply max-w-[900px] text-gray-300 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed; }
+  .hf-card { @apply bg-brand-bg-elevated border border-brand-accent/30 rounded-2xl; }
+  .hf-hero-title { @apply text-5xl sm:text-6xl md:text-7xl lg:text-7xl font-bold tracking-tight text-white; }
+  .hf-hero-sub { @apply max-w-[700px] text-gray-300 md:text-xl; }
+  .hf-prose-dark { @apply max-w-3xl mx-auto text-gray-300 leading-relaxed text-base md:text-lg; }
+}

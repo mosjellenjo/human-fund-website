@@ -27,11 +27,11 @@ export function ImpactSection() {
   }
 
   return (
-    <section id="impact" className="w-full py-12 md:py-24 lg:py-32 bg-dark-green text-light-green-text">
-      <div className="container px-4 md:px-6">
+    <section id="impact" className="w-full hf-section bg-dark-green text-light-green-text">
+      <div className="hf-container">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-white">Our Impact</h2>
+            <h2 className="hf-heading">Our Impact</h2>
             <p className="max-w-[900px] text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               See how your support has made a difference in the lives of people everywhere.
             </p>
@@ -39,7 +39,7 @@ export function ImpactSection() {
         </div>
         <div className="mx-auto max-w-4xl py-12">
           <Tabs defaultValue="volunteers" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 bg-brand-bg-elevated text-light-green-text">
+            <TabsList aria-label="Impact charts" className="grid w-full grid-cols-2 bg-brand-bg-elevated text-light-green-text">
               <TabsTrigger value="volunteers" className="data-[state=active]:bg-brand-bg data-[state=active]:text-light-green-text">Volunteers</TabsTrigger>
               <TabsTrigger value="projects" className="data-[state=active]:bg-brand-bg data-[state=active]:text-light-green-text">Projects</TabsTrigger>
             </TabsList>

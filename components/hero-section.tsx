@@ -16,10 +16,10 @@ export function HeroSection() {
       </div> */}
       <div className="container relative z-10 px-4 md:px-6 flex flex-col items-center text-center space-y-8 py-24">
         <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm text-black">Established 1997</div>
-        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl max-w-3xl text-white">
+        <h1 className="hf-hero-title max-w-3xl">
           Money for People
         </h1>
-        <p className="max-w-[700px] text-light-green-text md:text-xl">
+        <p className="hf-hero-sub">
           The Human Fund is dedicated to making a difference in the lives of people everywhere, especially during the
           Festivus season.
         </p>

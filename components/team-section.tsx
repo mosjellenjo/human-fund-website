@@ -4,18 +4,18 @@ import { Button } from "@/components/ui/button"
 
 export function TeamSection() {
   return (
-    <section id="team" className="w-full py-12 md:py-24 lg:py-32 bg-dark-green text-light-green-text">
-      <div className="container px-4 md:px-6">
+    <section id="team" className="w-full hf-section bg-dark-green text-light-green-text">
+      <div className="hf-container">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-white">Our Team</h2>
-            <p className="max-w-[900px] text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+            <h2 className="hf-heading">Our Team</h2>
+            <p className="hf-subtext text-gray-300">
               Meet the dedicated individuals behind The Human Fund.
             </p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-          <Card className="overflow-hidden bg-gray-800 text-light-green-text border-gray-700">
+          <Card className="overflow-hidden bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
             <CardHeader className="p-0">
               <div className="h-60 w-full relative overflow-hidden">
                 <Image src="/images/Joseph 3.png" alt="Joseph B. Dale" fill className="object-cover object-[center_30%]" />
@@ -29,16 +29,16 @@ export function TeamSection() {
                 avoidance.
               </p>
             </CardContent>
-            <CardFooter className="flex justify-between border-t p-6 border-gray-700">
-              <Button variant="ghost" size="sm" className="text-light-green-text hover:text-white">
+            <CardFooter className="flex justify-between border-t p-6 border-brand-accent/30">
+              <Button variant="brandOutline" size="sm" className="text-light-green-text hover:text-white">
                 Contact
               </Button>
-              <Button variant="outline" size="sm" className="bg-button-yellow text-black border-button-yellow hover:bg-white hover:text-black">
+              <Button variant="brand" size="sm">
                 Bio
               </Button>
             </CardFooter>
           </Card>
-          <Card className="overflow-hidden bg-gray-800 text-light-green-text border-gray-700">
+          <Card className="overflow-hidden bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
             <CardHeader className="p-0">
               <div className="h-60 w-full relative">
                 <Image src="/images/Art V 2.png" alt="Art Vandelay" fill className="object-cover object-[center_40%]" />
@@ -52,16 +52,16 @@ export function TeamSection() {
                 vague deliverables.
               </p>
             </CardContent>
-            <CardFooter className="flex justify-between border-t p-6 border-gray-700">
-              <Button variant="ghost" size="sm" className="text-light-green-text hover:text-white">
+            <CardFooter className="flex justify-between border-t p-6 border-brand-accent/30">
+              <Button variant="brandOutline" size="sm" className="text-light-green-text hover:text-white">
                 Contact
               </Button>
-              <Button variant="outline" size="sm" className="bg-button-yellow text-black border-button-yellow hover:bg-white hover:text-black">
+              <Button variant="brand" size="sm">
                 Bio
               </Button>
             </CardFooter>
           </Card>
-          <Card className="overflow-hidden bg-gray-800 text-light-green-text border-gray-700">
+          <Card className="overflow-hidden bg-brand-bg-elevated text-light-green-text border border-brand-accent/30">
             <CardHeader className="p-0">
               <div className="h-60 w-full relative">
                 <Image
@@ -80,11 +80,11 @@ export function TeamSection() {
                 insights and untraceable prescriptions.
               </p>
             </CardContent>
-            <CardFooter className="flex justify-between border-t p-6 border-gray-700">
-              <Button variant="ghost" size="sm" className="text-light-green-text hover:text-white">
+            <CardFooter className="flex justify-between border-t p-6 border-brand-accent/30">
+              <Button variant="brandOutline" size="sm" className="text-light-green-text hover:text-white">
                 Contact
               </Button>
-              <Button variant="outline" size="sm" className="bg-button-yellow text-black border-button-yellow hover:bg-white hover:text-black">
+              <Button variant="brand" size="sm">
                 Bio
               </Button>
             </CardFooter>

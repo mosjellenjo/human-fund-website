@@ -6,6 +6,7 @@ import { TeamSection } from "@/components/team-section"
 import { ContactSection } from "@/components/contact-section"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { SEOSection } from "@/components/seo-section"
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <ImpactSection />
         <TeamSection />
         <ContactSection />
+        <SEOSection />
       </main>
       <SiteFooter />
     </div>

@@ -48,11 +48,11 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="w-full py-12 md:py-24 lg:py-32 bg-dark-green text-white">
-      <div className="container px-4 md:px-6">
+    <section id="contact" className="w-full hf-section bg-dark-green text-white">
+      <div className="hf-container">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Contact & Donations</h2>
+            <h2 className="hf-heading">Contact & Donations</h2>
             <p className="max-w-[900px] text-gray-300 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               Have questions or want to make a donation? Fill out the form below and we'll get back to you as soon as possible.
             </p>
