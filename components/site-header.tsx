@@ -60,7 +60,7 @@ export function SiteHeader() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center space-x-2 text-white">
-            <Image src="/images/Original_logo_bw_humans3 - white.png" alt="The Human Fund" width={24} height={24} className="mr-1 -mt-0.5" />
+            <Image src="/images/Original_logo_bw_humans3 - white.png" alt="The Human Fund" width={24} height={24} className="mr-0 -mt-0.5" />
             <span className="text-xl font-bold tracking-tight">The Human Fund</span>
           </Link>
           <span className="text-xs text-light-green-text hidden sm:inline-block">Money for People</span>
